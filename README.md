@@ -12,13 +12,24 @@ alt="The Grossest Words Ever" width="240" height="180" border="10" /></a>
 ## How to run 
 
 ```python
+make
+#or
 python main.py 
 ```
 
-Upon running, you should expect 3 lists of 10 iteams each. These are 1grams, 2grams, and 3grams. Really, these are the counts of letters (or groups of letters) that are most common in all the words in the video. 
+To run specific modes: 
+```python 
+make analysis
+make generate 
+#or 
+python main.py analysis
+python main.py generate 
+``` 
 
-At the end, you will see a random word that has been generated based on these analytics and some random factors. 
+Upon running "analysis," you should expect 3 lists of 10 iteams each. These are 1grams, 2grams, and 3grams. Really, these are the counts of letters (or groups of letters) that are most common in all the words in the video. 
+
+For "generate," you will see a random word that has been generated based on these analytics and some random factors. 
 
 ## TODOs
 
-The next step would be to add a better interface to the program, and maybe create a webapp with flair and data viz. 
+Maybe create a webapp with flair and data viz. 
