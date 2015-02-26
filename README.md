@@ -28,6 +28,8 @@ python main.py generate
 
 Upon running "analysis," you should expect 3 lists of 10 iteams each. These are 1grams, 2grams, and 3grams. Really, these are the counts of letters (or groups of letters) that are most common in all the words in the video. 
 
+On some ngrams, the "<" represents the start of a word, and ">" represents the end of a word. 
+
 For "generate," you will see a random word that has been generated based on these analytics and some random factors. 
 
 ## TODOs
