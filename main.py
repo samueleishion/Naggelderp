@@ -88,16 +88,31 @@ def find_value_in_tuple_list(needle, haystack):
 	return 0
 
 def generate(one, two, three, limit):
+	previous = ""
 	letter = "<" 
 	word = ""
 
 	while(letter!=">"):
+		temp = {} 
 		pool = [] 
 		result = []
 
 		for k in two: 
 			if string_contains(letter, k[0], 0): 
-				pool.append((k[0],1))  
+				if not k[0] in temp: 
+					temp[k[0]] = 0 
+				temp[k[0]] += 1 
+
+		if letter!="<":
+			for k in three: 
+				if string_contains(previous, k[0], 0) and string_contains(letter, k[0], 1):
+					if not k[0] in temp: 
+						temp[k[0][1:]] = 0 
+					temp[k[0][1:]] += 1
+
+
+		for t in temp:
+			pool.append((t,temp[t]))
 
 		for p in pool:
 			v = p[1] + find_value_in_tuple_list(p[0],one) 
@@ -111,6 +126,7 @@ def generate(one, two, three, limit):
 		i = 0
 		# while(i<len(result)-1 and letter==result[i][0]):
 		# 	i+=1
+		previous = letter 
 		letter = result[i][0][1]  
 		word += "" if letter==">" else letter 
 
