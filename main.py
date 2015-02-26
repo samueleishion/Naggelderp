@@ -59,6 +59,20 @@ def count_3_grams(data):
 			grams[g] += 1 
 
 	return grams 
+
+def longest_length(lines):
+	k = 0
+	for i in lines: 
+		if len(i)>k: 
+			k = len(i) 
+
+	return k
+
+def is_end_gram(gram):
+	try: 
+		return gram.index(">")>=0
+	except: 
+		return False 
 	 
 def string_contains(needle, haystack, index):
 	try: 
@@ -73,7 +87,7 @@ def find_value_in_tuple_list(needle, haystack):
 
 	return 0
 
-def generate(one, two, three):
+def generate(one, two, three, limit):
 	letter = "<" 
 	word = ""
 
@@ -87,6 +101,8 @@ def generate(one, two, three):
 
 		for p in pool:
 			v = p[1] + find_value_in_tuple_list(p[0],one) 
+			if(is_end_gram(p[0])): 
+				v *= (len(word)/limit)+1
 			v *= random.uniform(0.75,0.85) 
 			result.append((p[0],v)) 
 
@@ -103,6 +119,8 @@ def generate(one, two, three):
 
 def main():
 	lines = load("words.txt") 
+	limit = longest_length(lines) 
+
 	onegrams = count_1_grams(lines) 
 	twograms = count_2_grams(lines) 
 	thrgrams = count_3_grams(lines) 
@@ -136,6 +154,6 @@ def main():
 			break 
 
 	print ""
-	print generate(onegrams, twograms, thrgrams) 
+	print generate(onegrams, twograms, thrgrams, limit) 
 
 main() 
