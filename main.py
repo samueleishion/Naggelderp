@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+import sys
 import random 
 import operator 
 
@@ -87,6 +90,18 @@ def find_value_in_tuple_list(needle, haystack):
 
 	return 0
 
+def show_top_gram(title, grams): 
+	print title
+	i = 0
+	for g in grams:
+		vis = "*"*g[1] 
+		print g[0]+" "+str(g[1])+" "+vis 
+		i+=1
+		if i==9:
+			break 
+
+	print "" 
+
 def generate(one, two, three, limit):
 	previous = ""
 	letter = "<" 
@@ -133,7 +148,8 @@ def generate(one, two, three, limit):
 	return word 
 
 
-def main():
+def main(args):
+	cmd = args[1] 
 	lines = load("words.txt") 
 	limit = longest_length(lines) 
 
@@ -145,31 +161,15 @@ def main():
 	twograms = sorted(twograms.items(), key=operator.itemgetter(1))[::-1] 
 	thrgrams = sorted(thrgrams.items(), key=operator.itemgetter(1))[::-1] 
 
-	print "onegrams"
-	i = 0
-	for g in onegrams:
-		print g[0]+" "+str(g[1]) 
-		i+=1
-		if i==9:
-			break 
+	if cmd=="analysis":
+		show_top_gram("onegrams", onegrams) 
+		show_top_gram("twograms", twograms) 
+		show_top_gram("thrgrams", thrgrams) 
 
-	print "twograms"
-	i = 0
-	for g in twograms:
-		print g[0]+" "+str(g[1]) 
-		i+=1
-		if i==9:
-			break 
+	elif cmd=="generate":
+		print generate(onegrams, twograms, thrgrams, limit) 
 
-	print "thrgrams"
-	i = 0
-	for g in thrgrams:
-		print g[0]+" "+str(g[1]) 
-		i+=1
-		if i==9:
-			break 
+	else: 
+		print "Please choose a valide option. "
 
-	print ""
-	print generate(onegrams, twograms, thrgrams, limit) 
-
-main() 
+main(sys.argv) 
