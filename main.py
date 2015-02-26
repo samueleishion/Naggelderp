@@ -1,3 +1,4 @@
+import random 
 import operator 
 
 def load(fname):
@@ -9,7 +10,6 @@ def load(fname):
 		lines[i] = "<"+lines[i].replace(" ","")+">" 
 
 	return lines 
-
 
 def count_1_grams(data):
 	grams = {} 
@@ -60,6 +60,46 @@ def count_3_grams(data):
 
 	return grams 
 	 
+def string_contains(needle, haystack, index):
+	try: 
+		return haystack.index(needle)==index 
+	except: 
+		return False 
+
+def find_value_in_tuple_list(needle, haystack):
+	for h in haystack:
+		if h[0]==needle:
+			return h[1]
+
+	return 0
+
+def generate(one, two, three):
+	letter = "<" 
+	word = ""
+
+	while(letter!=">"):
+		pool = [] 
+		result = []
+
+		for k in two: 
+			if string_contains(letter, k[0], 0): 
+				pool.append((k[0],1))  
+
+		for p in pool:
+			v = p[1] + find_value_in_tuple_list(p[0],one) 
+			v *= random.uniform(0.75,0.85) 
+			result.append((p[0],v)) 
+
+		result = sorted(result, key=operator.itemgetter(1))[::-1] 
+
+		i = 0
+		# while(i<len(result)-1 and letter==result[i][0]):
+		# 	i+=1
+		letter = result[i][0][1]  
+		word += "" if letter==">" else letter 
+
+	return word 
+
 
 def main():
 	lines = load("words.txt") 
@@ -94,5 +134,8 @@ def main():
 		i+=1
 		if i==9:
 			break 
+
+	print ""
+	print generate(onegrams, twograms, thrgrams) 
 
 main() 
